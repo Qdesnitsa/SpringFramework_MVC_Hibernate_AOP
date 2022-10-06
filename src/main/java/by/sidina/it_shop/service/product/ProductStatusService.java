@@ -1,7 +1,6 @@
 package by.sidina.it_shop.service.product;
 
 import by.sidina.it_shop.dao.product.ProductStatusBaseDAO;
-import by.sidina.it_shop.dao.product.ProductStatusDAO;
 import by.sidina.it_shop.entity.product.ProductStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,11 +32,6 @@ public class ProductStatusService implements ProductStatusBaseService<ProductSta
 
     @Override
     public void add(ProductStatus entity) {
-        productStatusBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(ProductStatus entity) {
-        productStatusBaseDAO.edit(entity);
+        productStatusBaseDAO.addOrUpdate(entity);
     }
 }

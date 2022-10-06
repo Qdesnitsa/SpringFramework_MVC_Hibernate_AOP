@@ -1,7 +1,6 @@
 package by.sidina.it_shop.entity.user;
 
 import by.sidina.it_shop.entity.EntityAbstract;
-import by.sidina.it_shop.entity.product.Book;
 import by.sidina.it_shop.entity.product.ProductAbstract;
 
 import javax.persistence.*;
@@ -9,17 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User extends EntityAbstract {
-    @Column(name = "name")
     private String name;
-    @Column(name = "surname")
     private String surname;
-    @Column(name = "email")
     private String email;
-    @Column(name = "password")
     private String password;
-    @Column(name = "country")
     private String country;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, optional = false)
     @JoinColumn(name = "user_role_id")

@@ -1,7 +1,6 @@
 package by.sidina.it_shop.service.product;
 
 import by.sidina.it_shop.dao.product.ProductTypeBaseDAO;
-import by.sidina.it_shop.dao.product.ProductTypeDAO;
 import by.sidina.it_shop.entity.product.ProductType;
 import by.sidina.it_shop.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,6 @@ public class ProductTypeService implements BaseService<ProductType> {
 
     @Override
     public void add(ProductType entity) {
-        productTypeBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(ProductType entity) {
-        productTypeBaseDAO.edit(entity);
+        productTypeBaseDAO.addOrUpdate(entity);
     }
 }

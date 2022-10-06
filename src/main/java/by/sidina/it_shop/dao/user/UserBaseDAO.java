@@ -5,6 +5,6 @@ import by.sidina.it_shop.dao.exception.DAOException;
 
 import java.util.Optional;
 
-public interface UserBaseDAO<T> extends BaseDAO<T> {
+public interface UserBaseDAO<T, ID> extends BaseDAO<T, ID> {
     Optional<T> findByEmail(String email) throws DAOException;
 }

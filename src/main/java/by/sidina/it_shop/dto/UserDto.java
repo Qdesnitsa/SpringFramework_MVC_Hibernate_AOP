@@ -9,20 +9,20 @@ import javax.validation.constraints.Size;
 
 @Component
 public class UserDto {
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "[a-zA-Z]{2,100}", message = "name should be between 2 and 100 symbols")
     private String name;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "[a-zA-Z]{2,100}", message = "surname should be between 2 and 100 symbols")
     private String surname;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Email
     private String email;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Size(min = 5, max = 100, message = "password should be between 5 and 100 symbols")
     private String password;
-    @NotBlank
-    @Pattern(regexp = "[a-zA-Z]{2,100}")
+    @NotBlank(message = "all fields are mandatory")
+    @Pattern(regexp = "[a-zA-Z]{2,100}", message = "country should be between 2 and 100 symbols")
     private String country;
 
     public UserDto() {

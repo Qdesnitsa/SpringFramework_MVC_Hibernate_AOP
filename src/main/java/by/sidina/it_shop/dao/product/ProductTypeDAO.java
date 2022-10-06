@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductTypeDAO implements ProductTypeBaseDAO<ProductType> {
+public class ProductTypeDAO implements ProductTypeBaseDAO<ProductType, Long> {
     private final SessionFactory sessionFactory;
 
     public ProductTypeDAO(SessionFactory sessionFactory) {
@@ -24,21 +24,15 @@ public class ProductTypeDAO implements ProductTypeBaseDAO<ProductType> {
     }
 
     @Override
-    public Optional<ProductType> findById(long id) {
+    public Optional<ProductType> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         ProductType productType = session.get(ProductType.class, id);
         return Optional.of(productType);
     }
 
     @Override
-    public void add(ProductType entity) {
+    public void addOrUpdate(ProductType entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(ProductType entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 }

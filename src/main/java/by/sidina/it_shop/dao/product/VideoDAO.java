@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class VideoDAO implements VideoBaseDAO<Video> {
+public class VideoDAO implements VideoBaseDAO<Video, Long> {
     private final SessionFactory sessionFactory;
 
     public VideoDAO(SessionFactory sessionFactory) {
@@ -25,22 +25,16 @@ public class VideoDAO implements VideoBaseDAO<Video> {
     }
 
     @Override
-    public Optional<Video> findById(long id) {
+    public Optional<Video> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Video video = session.get(Video.class, id);
         return Optional.of(video);
     }
 
     @Override
-    public void add(Video entity) {
+    public void addOrUpdate(Video entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(Video entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 
     @Override

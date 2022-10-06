@@ -43,6 +43,13 @@ Your current status is ${sessionScope.currentUser.userStatus.userStatus}<br><br>
 <form action="/product/add-new-video">
     <button type="submit">Add new video</button>
 </form>
+
+<br><br><br><br><br>
+
+<!--ADMIN, SELLER, BUYER-->
+<form action="/sign-out">
+    <button type="submit">Sign out</button>
+</form>
 <p style="color: red">${message}</p>
 </body>
 </html>

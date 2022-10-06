@@ -32,19 +32,24 @@
     <h2>My shopping history</h2>
     <table>
         <tr>
+            <th>Date of order</th>
             <th>Name</th>
             <th>Language</th>
             <th>Author</th>
             <th>Price</th>
-            <th width="10%">Action</th>
         </tr>
-        <c:forEach var="product" items="${myList}">
-            <tr>
-                <td>${product.name}</td>
-                <td>${product.language}</td>
-                <td>${product.author}</td>
-                <td>${product.price}</td>
-            </tr>
+        <c:forEach var="entry" items="${map}">
+            <c:forEach var="order" items="${entry.value}">
+                <c:forEach var="product" items="${order.value}">
+                    <tr>
+                        <td>${order.key}</td>
+                        <td>${product.name}</td>
+                        <td>${product.language}</td>
+                        <td>${product.author}</td>
+                        <td>${product.price}</td>
+                    </tr>
+                </c:forEach>
+            </c:forEach>
         </c:forEach>
     </table>
     <br><br>

@@ -1,15 +1,10 @@
 package by.sidina.it_shop.entity.product;
 
 import by.sidina.it_shop.entity.user.User;
-import com.sun.istack.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
 @Entity

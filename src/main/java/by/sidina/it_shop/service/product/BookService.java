@@ -1,7 +1,6 @@
 package by.sidina.it_shop.service.product;
 
 import by.sidina.it_shop.dao.product.BookBaseDAO;
-import by.sidina.it_shop.dao.product.BookDAO;
 import by.sidina.it_shop.entity.product.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,12 +32,7 @@ public class BookService implements BookBaseService<Book> {
 
     @Override
     public void add(Book entity) {
-        bookBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(Book entity) {
-        bookBaseDAO.edit(entity);
+        bookBaseDAO.addOrUpdate(entity);
     }
 
     @Override

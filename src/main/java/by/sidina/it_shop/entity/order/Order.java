@@ -3,24 +3,22 @@ package by.sidina.it_shop.entity.order;
 import by.sidina.it_shop.entity.EntityAbstract;
 import by.sidina.it_shop.entity.product.ProductAbstract;
 import by.sidina.it_shop.entity.user.User;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends EntityAbstract {
-    @Column(name = "date_order")
-    private Date dateOfOrder;
+    @Column(name = "date", updatable = false)
+    private Timestamp dateOfOrder;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, optional = false)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
     private User user;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, optional = false)
-    @JoinColumn(name = "order_status_id")
+    @JoinColumn(name = "order_status_id", updatable = false)
     private OrderStatus orderStatus;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "order_product",
@@ -31,7 +29,7 @@ public class Order extends EntityAbstract {
     public Order() {
     }
 
-    public Order(Date dateOfOrder, User user, OrderStatus orderStatus) {
+    public Order(Timestamp dateOfOrder, User user, OrderStatus orderStatus) {
         this.dateOfOrder = dateOfOrder;
         this.user = user;
         this.orderStatus = orderStatus;
@@ -48,11 +46,11 @@ public class Order extends EntityAbstract {
         listOfProductsInOrder.remove(product);
     }
 
-    public Date getDateOfOrder() {
+    public Timestamp getDateOfOrder() {
         return dateOfOrder;
     }
 
-    public void setDateOfOrder(Date dateOfOrder) {
+    public void setDateOfOrder(Timestamp dateOfOrder) {
         this.dateOfOrder = dateOfOrder;
     }
 

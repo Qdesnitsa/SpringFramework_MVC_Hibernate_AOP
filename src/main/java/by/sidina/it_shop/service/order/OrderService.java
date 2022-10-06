@@ -32,12 +32,7 @@ public class OrderService implements OrderBaseService<Order> {
 
     @Override
     public void add(Order entity) {
-        orderBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(Order entity) {
-        orderBaseDAO.edit(entity);
+        orderBaseDAO.addOrUpdate(entity);
     }
 
     @Override

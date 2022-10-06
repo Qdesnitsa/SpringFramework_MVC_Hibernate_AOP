@@ -4,14 +4,13 @@ import by.sidina.it_shop.entity.product.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class BookDAO implements BookBaseDAO<Book> {
+public class BookDAO implements BookBaseDAO<Book, Long> {
     private final SessionFactory sessionFactory;
 
     public BookDAO(SessionFactory sessionFactory) {
@@ -26,22 +25,16 @@ public class BookDAO implements BookBaseDAO<Book> {
     }
 
     @Override
-    public Optional<Book> findById(long id) {
+    public Optional<Book> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Book book = session.get(Book.class, id);
         return Optional.of(book);
     }
 
     @Override
-    public void add(Book entity) {
+    public void addOrUpdate(Book entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(Book entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 
     @Override

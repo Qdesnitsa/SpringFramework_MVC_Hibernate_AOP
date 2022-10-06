@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
@@ -35,7 +37,14 @@ public class OrderController {
     public String addNewBook(HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
         List<ProductAbstract> listUserProduct = user.getListOfProductsInUser();
+        BigDecimal amountPayable = BigDecimal.ZERO;
+        if (listUserProduct != null) {
+            amountPayable = listUserProduct.stream()
+                    .map(product -> product.getPrice())
+                    .reduce(BigDecimal::add).get();
+        }
         model.addAttribute("myList", listUserProduct);
+        model.addAttribute("amountToPay", amountPayable);
         return "/order/show-my-shopping-cart";
     }
 
@@ -45,20 +54,23 @@ public class OrderController {
         ProductAbstract product = user.getListOfProductsInUser().stream().filter(p -> (p.getId() == id)).findFirst().get();
         user.getListOfProductsInUser().remove(product);
         List<ProductAbstract> list = user.getListOfProductsInUser();
+        BigDecimal amountPayable = list.stream()
+                .map(prod -> prod.getPrice())
+                .reduce(BigDecimal::add).get();
         model.addAttribute("myList", list);
+        model.addAttribute("amountToPay", amountPayable);
         return "/order/show-my-shopping-cart";
     }
 
     @RequestMapping("/buyNow")
     public String buyNow(HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
-        Date currentDate = Date.valueOf(LocalDate.now());
+        Timestamp currentDate = Timestamp.valueOf(LocalDateTime.now());
         OrderStatus orderStatus = (OrderStatus) orderStatusBaseService.findById(2L).get();
         Order order = new Order(currentDate, user, orderStatus);
-        for (ProductAbstract prod : user.getListOfProductsInUser()) {
-            order.addProductToOrder(prod);
-        }
+        user.getListOfProductsInUser().stream().forEach(product -> order.addProductToOrder(product));
         orderBaseService.add(order);
+        user.getListOfProductsInUser().clear();
         model.addAttribute("message", "Successfully.");
         return "/order/show-my-shopping-cart";
     }
@@ -67,13 +79,17 @@ public class OrderController {
     public String showHistory(HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
         List<Order> orders = orderBaseService.findAllByUserId(user.getId());
-        List<ProductAbstract> products = new ArrayList<>();
-        for (Order order : orders) {
-            for (ProductAbstract prod : order.getListOfProductsInOrder()) {
-                products.add(prod);
-            }
+//        List<ProductAbstract> products = orders.stream()
+//                .flatMap(order -> order.getListOfProductsInOrder().stream())
+//                .collect(Collectors.toList()).stream().collect(Collectors.toList());
+        HashMap<Timestamp, List<ProductAbstract>> smallMap = new HashMap<>();
+        Map<Long, HashMap<Timestamp, List<ProductAbstract>>> superMap = new HashMap<>();
+        for (Order ord : orders) {
+            smallMap.put(ord.getDateOfOrder(), ord.getListOfProductsInOrder());
+            superMap.put(ord.getId(), new HashMap<>(smallMap));
+            smallMap.clear();
         }
-        model.addAttribute("myList", products);
+        model.addAttribute("map", superMap);
         return "/order/show-my-shopping-history";
     }
 }

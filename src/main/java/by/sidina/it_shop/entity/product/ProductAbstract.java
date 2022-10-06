@@ -3,25 +3,22 @@ package by.sidina.it_shop.entity.product;
 import by.sidina.it_shop.entity.EntityAbstract;
 import by.sidina.it_shop.entity.order.Order;
 import by.sidina.it_shop.entity.user.User;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity(name = "product")
+@Entity(name = "products")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type_id", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class ProductAbstract extends EntityAbstract {
-    @Column(name = "product_name")
+
     private String name;
     @Column(name = "progr_language")
     private String language;
-    @Column(name = "author")
+
     private String author;
-    @Column(name = "price")
+
     private BigDecimal price;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, optional = false)
     @JoinColumn(name = "product_status_id")

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRoleDAO implements UserRoleBaseDAO<UserRole> {
+public class UserRoleDAO implements UserRoleBaseDAO<UserRole, Long> {
     private final SessionFactory sessionFactory;
 
     public UserRoleDAO(SessionFactory sessionFactory) {
@@ -24,21 +24,15 @@ public class UserRoleDAO implements UserRoleBaseDAO<UserRole> {
     }
 
     @Override
-    public Optional<UserRole> findById(long id) {
+    public Optional<UserRole> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         UserRole userRole = session.get(UserRole.class, id);
         return Optional.of(userRole);
     }
 
     @Override
-    public void add(UserRole entity) {
+    public void addOrUpdate(UserRole entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(UserRole entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 }

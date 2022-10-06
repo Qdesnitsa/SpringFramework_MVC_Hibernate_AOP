@@ -1,9 +1,7 @@
 package by.sidina.it_shop.service.user;
 
 import by.sidina.it_shop.dao.user.UserStatusBaseDAO;
-import by.sidina.it_shop.dao.user.UserStatusDAO;
 import by.sidina.it_shop.entity.user.UserStatus;
-import by.sidina.it_shop.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -34,11 +32,6 @@ public class UserStatusService implements UserStatusBaseService<UserStatus> {
 
     @Override
     public void add(UserStatus entity) {
-        userStatusBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(UserStatus entity) {
-        userStatusBaseDAO.edit(entity);
+        userStatusBaseDAO.addOrUpdate(entity);
     }
 }

@@ -44,19 +44,19 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             return "product/add-new-book";
         }
+        Book bookEntity = null;
+        ProductStatus productStatus = null;
         if (book.getId() == 0L) {
-            Book bookEntity = converter.convertToBook(book, new Book());
-            ProductStatus productStatus = (ProductStatus) productStatusBaseService.findById(1L).get();
-            bookEntity.setUser((User) httpSession.getAttribute("currentUser"));
+            bookEntity = converter.convertToBook(book, new Book());
+            productStatus = (ProductStatus) productStatusBaseService.findById(1L).get();
             bookEntity.setProductStatus(productStatus);
-            bookBaseService.add(bookEntity);
         } else {
-            Book existingBook = converter.convertToBook(book, (Book) bookBaseService.findById(book.getId()).get());
-            ProductStatus productStatus = (ProductStatus) productStatusBaseService.findById(id).get();
-            existingBook.setProductStatus(productStatus);
-            existingBook.setUser((User) httpSession.getAttribute("currentUser"));
-            bookBaseService.edit(existingBook);
+            bookEntity = converter.convertToBook(book, (Book) bookBaseService.findById(book.getId()).get());
+            productStatus = (ProductStatus) productStatusBaseService.findById(id).get();
         }
+        bookEntity.setUser((User) httpSession.getAttribute("currentUser"));
+        bookEntity.setProductStatus(productStatus);
+        bookBaseService.add(bookEntity);
         model.addAttribute("message", "Successfully.");
         return "product/add-new-book";
     }

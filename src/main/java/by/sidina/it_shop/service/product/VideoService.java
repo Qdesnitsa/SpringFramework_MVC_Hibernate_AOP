@@ -1,7 +1,6 @@
 package by.sidina.it_shop.service.product;
 
 import by.sidina.it_shop.dao.product.VideoBaseDAO;
-import by.sidina.it_shop.dao.product.VideoDAO;
 import by.sidina.it_shop.entity.product.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,12 +32,7 @@ public class VideoService implements VideoBaseService<Video> {
 
     @Override
     public void add(Video entity) {
-        videoBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(Video entity) {
-        videoBaseDAO.edit(entity);
+        videoBaseDAO.addOrUpdate(entity);
     }
 
     @Override

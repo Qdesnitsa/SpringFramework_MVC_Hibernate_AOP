@@ -2,24 +2,25 @@ package by.sidina.it_shop.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class BookDto {
     private long id;
-    @NotBlank
-    @Pattern(regexp = "[a-zA-Z\\s]{2,100}", message = "name should be between 2 and 100 symbols")
+    @NotBlank(message = "all fields are mandatory")
+    @Size(min = 1, max = 100, message = "name should be between 2 and 100 symbols")
     private String name;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     private String language;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "[a-zA-Z\\s]{2,100}", message = "author should be between 2 and 100 symbols")
     private String author;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "^[0-9]*[.,]?[0-9]+$", message = "numbers only")
     private String price;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "\\d+", message = "numbers only")
     private String pageNumber;
-    @NotBlank
+    @NotBlank(message = "all fields are mandatory")
     @Pattern(regexp = "[0-9]{4}", message = "should contain 4 numbers only")
     private String yearPublished;
 

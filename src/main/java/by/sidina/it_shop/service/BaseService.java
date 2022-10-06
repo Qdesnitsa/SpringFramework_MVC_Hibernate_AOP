@@ -11,6 +11,4 @@ public interface BaseService<T> {
     Optional<T> findById(long id);
 
     void add(T entity);
-
-    void edit(T entity);
 }

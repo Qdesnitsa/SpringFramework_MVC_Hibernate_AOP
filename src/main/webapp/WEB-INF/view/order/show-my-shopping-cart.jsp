@@ -25,6 +25,12 @@
         tbody tr:nth-child(even) {
             background-color: whitesmoke;
         }
+        h3 {
+            background: #D9FFAD;
+            color: green;
+            padding: 2px;
+            width: fit-content;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +58,7 @@
             </tr>
         </c:forEach>
     </table>
+    <h3>Amount to pay: ${amountToPay}</h3>
     <br><br>
     <c:url var="buyNowButton" value="/order/buyNow">
     </c:url>

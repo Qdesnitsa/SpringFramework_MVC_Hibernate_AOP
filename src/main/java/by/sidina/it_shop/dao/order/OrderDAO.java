@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class OrderDAO implements OrderBaseDAO<Order> {
+public class OrderDAO implements OrderBaseDAO<Order, Long> {
     private final SessionFactory sessionFactory;
 
     public OrderDAO(SessionFactory sessionFactory) {
@@ -25,26 +25,20 @@ public class OrderDAO implements OrderBaseDAO<Order> {
     }
 
     @Override
-    public Optional<Order> findById(long id) {
+    public Optional<Order> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Order order = session.get(Order.class, id);
         return Optional.of(order);
     }
 
     @Override
-    public void add(Order entity) {
+    public void addOrUpdate(Order entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
+        session.saveOrUpdate(entity);
     }
 
     @Override
-    public void edit(Order entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
-    }
-
-    @Override
-    public List<Order> findAllByUserId(long id) {
+    public List<Order> findAllByUserId(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Order WHERE user_id = :userId").setParameter("userId", id);
         List<Order> allOrders = query.getResultList();

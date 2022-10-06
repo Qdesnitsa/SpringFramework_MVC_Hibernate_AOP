@@ -2,7 +2,6 @@ package by.sidina.it_shop.service.user;
 
 import by.sidina.it_shop.dao.exception.DAOException;
 import by.sidina.it_shop.dao.user.UserBaseDAO;
-import by.sidina.it_shop.dao.user.UserDAO;
 import by.sidina.it_shop.entity.user.User;
 import by.sidina.it_shop.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +34,7 @@ public class UserService implements UserBaseService<User> {
 
     @Override
     public void add(User entity) {
-        userBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(User entity) {
-        userBaseDAO.edit(entity);
+        userBaseDAO.addOrUpdate(entity);
     }
 
     @Override

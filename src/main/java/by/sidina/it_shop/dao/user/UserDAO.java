@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDAO implements UserBaseDAO<User> {
+public class UserDAO implements UserBaseDAO<User, Long> {
     private final SessionFactory sessionFactory;
 
     public UserDAO(SessionFactory sessionFactory) {
@@ -27,22 +27,16 @@ public class UserDAO implements UserBaseDAO<User> {
     }
 
     @Override
-    public Optional<User> findById(long id) {
+    public Optional<User> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
         return Optional.of(user);
     }
 
     @Override
-    public void add(User entity) {
+    public void addOrUpdate(User entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(User entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 
     @Override

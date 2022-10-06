@@ -32,11 +32,6 @@ public class OrderStatusService implements OrderStatusBaseService<OrderStatus> {
 
     @Override
     public void add(OrderStatus entity) {
-        orderStatusBaseDAO.add(entity);
-    }
-
-    @Override
-    public void edit(OrderStatus entity) {
-        orderStatusBaseDAO.edit(entity);
+        orderStatusBaseDAO.addOrUpdate(entity);
     }
 }

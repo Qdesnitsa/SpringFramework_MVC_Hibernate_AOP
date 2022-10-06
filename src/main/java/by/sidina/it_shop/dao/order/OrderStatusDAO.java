@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class OrderStatusDAO implements OrderStatusBaseDAO<OrderStatus> {
+public class OrderStatusDAO implements OrderStatusBaseDAO<OrderStatus, Long> {
     private final SessionFactory sessionFactory;
 
     public OrderStatusDAO(SessionFactory sessionFactory) {
@@ -24,21 +24,15 @@ public class OrderStatusDAO implements OrderStatusBaseDAO<OrderStatus> {
     }
 
     @Override
-    public Optional<OrderStatus> findById(long id) {
+    public Optional<OrderStatus> findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         OrderStatus orderStatus = session.get(OrderStatus.class, id);
         return Optional.of(orderStatus);
     }
 
     @Override
-    public void add(OrderStatus entity) {
+    public void addOrUpdate(OrderStatus entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-    }
-
-    @Override
-    public void edit(OrderStatus entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(entity);
+        session.saveOrUpdate(entity);
     }
 }

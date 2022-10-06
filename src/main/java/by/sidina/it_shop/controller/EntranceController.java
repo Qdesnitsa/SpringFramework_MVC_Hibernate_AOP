@@ -93,5 +93,11 @@ public class EntranceController {
     public String getHomeUser() {
         return "home";
     }
+
+    @GetMapping("/sign-out")
+    public String signOutUser(HttpSession httpSession) {
+        httpSession.invalidate();
+        return "redirect:/sign-in";
+    }
 }
 

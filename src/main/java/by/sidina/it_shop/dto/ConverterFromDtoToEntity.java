@@ -5,6 +5,7 @@ import by.sidina.it_shop.entity.user.User;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 public class ConverterFromDtoToEntity {
@@ -12,7 +13,7 @@ public class ConverterFromDtoToEntity {
         book.setName(bookDto.getName());
         book.setLanguage(bookDto.getLanguage());
         book.setAuthor(bookDto.getAuthor());
-        BigDecimal price = new BigDecimal(bookDto.getPrice());
+        BigDecimal price = new BigDecimal(bookDto.getPrice()).setScale(2, RoundingMode.DOWN);
         book.setPrice(price);
         int pageNumber = Integer.parseInt(bookDto.getPageNumber());
         book.setPageNumber(pageNumber);
