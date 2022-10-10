@@ -41,7 +41,6 @@ public class BookDAO implements BookBaseDAO<Book, Long> {
         Query query = session.createSQLQuery("SELECT count(products.id) FROM products");
         BigInteger countResults = (BigInteger) query.uniqueResult();
         BigInteger lastPageNumber = countResults.divide(BigInteger.valueOf(pageSize));
-        //int lastPageNumber = (int) (Math.ceil(countResults / filter.getPageSize()));
         return lastPageNumber;
     }
 
