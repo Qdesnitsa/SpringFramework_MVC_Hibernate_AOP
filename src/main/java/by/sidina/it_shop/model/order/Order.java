@@ -1,8 +1,8 @@
-package by.sidina.it_shop.entity.order;
+package by.sidina.it_shop.model.order;
 
-import by.sidina.it_shop.entity.EntityAbstract;
-import by.sidina.it_shop.entity.product.ProductAbstract;
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.AbstractEntity;
+import by.sidina.it_shop.model.product.AbstractProduct;
+import by.sidina.it_shop.model.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order extends EntityAbstract {
+public class Order extends AbstractEntity {
     @Column(name = "date", updatable = false)
     private Timestamp dateOfOrder;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, optional = false)
@@ -24,7 +24,7 @@ public class Order extends EntityAbstract {
     @JoinTable(name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<ProductAbstract> listOfProductsInOrder;
+    private List<AbstractProduct> listOfProductsInOrder;
 
     public Order() {
     }
@@ -35,14 +35,14 @@ public class Order extends EntityAbstract {
         this.orderStatus = orderStatus;
     }
 
-    public void addProductToOrder(ProductAbstract product) {
+    public void addProductToOrder(AbstractProduct product) {
         if (listOfProductsInOrder == null) {
             listOfProductsInOrder = new ArrayList<>();
         }
         listOfProductsInOrder.add(product);
     }
 
-    public void removeProductFromOrder(ProductAbstract product) {
+    public void removeProductFromOrder(AbstractProduct product) {
         listOfProductsInOrder.remove(product);
     }
 
@@ -70,11 +70,11 @@ public class Order extends EntityAbstract {
         this.orderStatus = orderStatus;
     }
 
-    public List<ProductAbstract> getListOfProductsInOrder() {
+    public List<AbstractProduct> getListOfProductsInOrder() {
         return listOfProductsInOrder;
     }
 
-    public void setListOfProductsInOrder(List<ProductAbstract> listOfProductsInOrder) {
+    public void setListOfProductsInOrder(List<AbstractProduct> listOfProductsInOrder) {
         this.listOfProductsInOrder = listOfProductsInOrder;
     }
 }

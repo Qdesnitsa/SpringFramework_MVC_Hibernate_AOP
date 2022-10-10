@@ -1,7 +1,7 @@
 package by.sidina.it_shop.service.product;
 
 import by.sidina.it_shop.dao.product.ProductTypeBaseDAO;
-import by.sidina.it_shop.entity.product.ProductType;
+import by.sidina.it_shop.model.product.ProductType;
 import by.sidina.it_shop.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class ProductTypeService implements BaseService<ProductType> {
     private final ProductTypeBaseDAO productTypeBaseDAO;
 
@@ -31,6 +31,7 @@ public class ProductTypeService implements BaseService<ProductType> {
         return productTypeBaseDAO.findById(id);
     }
 
+    @Transactional
     @Override
     public void add(ProductType entity) {
         productTypeBaseDAO.addOrUpdate(entity);

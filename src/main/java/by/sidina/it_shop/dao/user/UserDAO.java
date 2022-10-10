@@ -1,7 +1,7 @@
 package by.sidina.it_shop.dao.user;
 
 import by.sidina.it_shop.dao.exception.DAOException;
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.user.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

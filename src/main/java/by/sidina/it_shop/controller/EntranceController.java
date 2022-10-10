@@ -1,10 +1,10 @@
 package by.sidina.it_shop.controller;
 
-import by.sidina.it_shop.dto.ConverterFromDtoToEntity;
+import by.sidina.it_shop.service.mapper.MapperToUser;
 import by.sidina.it_shop.dto.UserDto;
-import by.sidina.it_shop.entity.user.User;
-import by.sidina.it_shop.entity.user.UserRole;
-import by.sidina.it_shop.entity.user.UserStatus;
+import by.sidina.it_shop.model.user.User;
+import by.sidina.it_shop.model.user.UserRole;
+import by.sidina.it_shop.model.user.UserStatus;
 import by.sidina.it_shop.service.exception.ServiceException;
 import by.sidina.it_shop.service.user.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/")
 public class EntranceController {
-    private final ConverterFromDtoToEntity converter;
+    private final MapperToUser mapperToUser;
     private final UserBaseService userBaseService;
     private final UserRoleBaseService userRoleBaseService;
     private final UserStatusBaseService userStatusBaseService;
@@ -28,11 +28,11 @@ public class EntranceController {
     public EntranceController(@Qualifier("userService") UserBaseService userBaseService,
                               @Qualifier("userRoleService") UserRoleBaseService userRoleBaseService,
                               @Qualifier("userStatusService") UserStatusBaseService userStatusBaseService,
-                              ConverterFromDtoToEntity converter) {
+                              MapperToUser mapperToUser) {
         this.userBaseService = userBaseService;
         this.userRoleBaseService = userRoleBaseService;
         this.userStatusBaseService = userStatusBaseService;
-        this.converter = converter;
+        this.mapperToUser = mapperToUser;
     }
 
     @GetMapping("/sign-up")
@@ -53,7 +53,7 @@ public class EntranceController {
         } catch (ServiceException e) {
             UserRole userRole = (UserRole) userRoleBaseService.findById(Long.parseLong(roleId)).get();
             UserStatus userStatus = (UserStatus) userStatusBaseService.findById(1L).get();
-            User userEntity = converter.convertUser(user, new User());
+            User userEntity = mapperToUser.mapToUser(user, new User());
             userEntity.setUserRole(userRole);
             userEntity.setUserStatus(userStatus);
             userBaseService.add(userEntity);

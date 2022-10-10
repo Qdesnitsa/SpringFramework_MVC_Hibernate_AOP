@@ -1,9 +1,9 @@
 package by.sidina.it_shop.controller;
 
-import by.sidina.it_shop.entity.order.Order;
-import by.sidina.it_shop.entity.order.OrderStatus;
-import by.sidina.it_shop.entity.product.ProductAbstract;
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.order.Order;
+import by.sidina.it_shop.model.order.OrderStatus;
+import by.sidina.it_shop.model.product.AbstractProduct;
+import by.sidina.it_shop.model.user.User;
 import by.sidina.it_shop.service.order.OrderBaseService;
 import by.sidina.it_shop.service.order.OrderStatusBaseService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,7 +36,7 @@ public class OrderController {
     @GetMapping("/show-my-shopping-cart")
     public String addNewBook(HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
-        List<ProductAbstract> listUserProduct = user.getListOfProductsInUser();
+        List<AbstractProduct> listUserProduct = user.getListOfProductsInUser();
         BigDecimal amountPayable = BigDecimal.ZERO;
         if (listUserProduct != null) {
             amountPayable = listUserProduct.stream()
@@ -51,9 +51,9 @@ public class OrderController {
     @RequestMapping("/deleteProduct")
     public String deleteBook(@RequestParam("productId") int id, Model model, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");
-        ProductAbstract product = user.getListOfProductsInUser().stream().filter(p -> (p.getId() == id)).findFirst().get();
+        AbstractProduct product = user.getListOfProductsInUser().stream().filter(p -> (p.getId() == id)).findFirst().get();
         user.getListOfProductsInUser().remove(product);
-        List<ProductAbstract> list = user.getListOfProductsInUser();
+        List<AbstractProduct> list = user.getListOfProductsInUser();
         BigDecimal amountPayable = list.stream()
                 .map(prod -> prod.getPrice())
                 .reduce(BigDecimal::add).get();
@@ -82,8 +82,8 @@ public class OrderController {
 //        List<ProductAbstract> products = orders.stream()
 //                .flatMap(order -> order.getListOfProductsInOrder().stream())
 //                .collect(Collectors.toList()).stream().collect(Collectors.toList());
-        HashMap<Timestamp, List<ProductAbstract>> smallMap = new HashMap<>();
-        Map<Long, HashMap<Timestamp, List<ProductAbstract>>> superMap = new HashMap<>();
+        HashMap<Timestamp, List<AbstractProduct>> smallMap = new HashMap<>();
+        Map<Long, HashMap<Timestamp, List<AbstractProduct>>> superMap = new HashMap<>();
         for (Order ord : orders) {
             smallMap.put(ord.getDateOfOrder(), ord.getListOfProductsInOrder());
             superMap.put(ord.getId(), new HashMap<>(smallMap));

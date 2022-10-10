@@ -2,7 +2,7 @@ package by.sidina.it_shop.service.user;
 
 import by.sidina.it_shop.dao.exception.DAOException;
 import by.sidina.it_shop.dao.user.UserBaseDAO;
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.user.User;
 import by.sidina.it_shop.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserService implements UserBaseService<User> {
     private final UserBaseDAO userBaseDAO;
 
@@ -32,6 +32,7 @@ public class UserService implements UserBaseService<User> {
         return userBaseDAO.findById(id);
     }
 
+    @Transactional
     @Override
     public void add(User entity) {
         userBaseDAO.addOrUpdate(entity);

@@ -1,14 +1,14 @@
-package by.sidina.it_shop.entity;
+package by.sidina.it_shop.model;
 
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class EntityAbstract {
+public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public EntityAbstract() {
+    public AbstractEntity() {
     }
 
     public long getId() {

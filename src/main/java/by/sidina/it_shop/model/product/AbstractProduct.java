@@ -1,8 +1,8 @@
-package by.sidina.it_shop.entity.product;
+package by.sidina.it_shop.model.product;
 
-import by.sidina.it_shop.entity.EntityAbstract;
-import by.sidina.it_shop.entity.order.Order;
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.AbstractEntity;
+import by.sidina.it_shop.model.order.Order;
+import by.sidina.it_shop.model.user.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity(name = "products")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type_id", discriminatorType = DiscriminatorType.INTEGER)
-public abstract class ProductAbstract extends EntityAbstract {
+public abstract class AbstractProduct extends AbstractEntity {
 
     private String name;
     @Column(name = "progr_language")
@@ -32,10 +32,10 @@ public abstract class ProductAbstract extends EntityAbstract {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public ProductAbstract() {
+    public AbstractProduct() {
     }
 
-    public ProductAbstract(String name, String language, String author, BigDecimal price, ProductStatus productStatus, User user) {
+    public AbstractProduct(String name, String language, String author, BigDecimal price, ProductStatus productStatus, User user) {
         this.name = name;
         this.language = language;
         this.author = author;

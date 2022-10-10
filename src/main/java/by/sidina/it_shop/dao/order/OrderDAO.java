@@ -1,6 +1,6 @@
 package by.sidina.it_shop.dao.order;
 
-import by.sidina.it_shop.entity.order.Order;
+import by.sidina.it_shop.model.order.Order;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

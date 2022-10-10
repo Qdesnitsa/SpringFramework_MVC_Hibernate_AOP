@@ -1,6 +1,6 @@
-package by.sidina.it_shop.entity.user;
+package by.sidina.it_shop.model.user;
 
-import by.sidina.it_shop.entity.EntityAbstract;
+import by.sidina.it_shop.model.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_status")
-public class UserStatus extends EntityAbstract {
+public class UserStatus extends AbstractEntity {
     @Column(name = "status")
     private String userStatus;
 

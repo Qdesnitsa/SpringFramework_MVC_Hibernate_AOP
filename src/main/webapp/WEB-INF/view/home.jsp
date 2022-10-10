@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -10,19 +12,23 @@ You registered as a/an ${sessionScope.currentUser.userRole.userRole}<br>
 Your current status is ${sessionScope.currentUser.userStatus.userStatus}<br><br>
 
 <!--ADMIN (edit, delete), SELLER (-), BUYER (add to shopping cart)-->
-<form action="/product/show-books">
+<s:form action="/product/show-books" method="get">
+    <input type="hidden" name="page" value="0"/>
+    <input type="hidden" name="pageSize" value="5"/>
     <button type="submit">Show all books</button>
-</form>
+</s:form>
 
 <!--ADMIN (edit, delete), SELLER (-), BUYER (add to shopping cart)-->
 <form action="/product/show-videos">
     <button type="submit">Show all videos</button>
 </form>
 
-<!--SELLER (edit)-->
-<form action="/show-my-products">
-    <button type="submit">Show my products</button>
-</form>
+<c:if test="${sessionScope.currentUser.userRole.id != 1}">
+    <!--SELLER (edit), BUYER (read, edit)-->
+    <form action="/show-my-products">
+        <button type="submit">Show my products</button>
+    </form>
+</c:if>
 
 <!--BUYER (delete product, clean shopping cart, buy now)-->
 <form action="/order/show-my-shopping-cart">

@@ -1,6 +1,6 @@
 package by.sidina.it_shop.dao.product;
 
-import by.sidina.it_shop.entity.product.Video;
+import by.sidina.it_shop.model.product.Video;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

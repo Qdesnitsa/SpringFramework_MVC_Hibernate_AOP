@@ -1,6 +1,6 @@
 package by.sidina.it_shop.dao.user;
 
-import by.sidina.it_shop.entity.user.UserStatus;
+import by.sidina.it_shop.model.user.UserStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;

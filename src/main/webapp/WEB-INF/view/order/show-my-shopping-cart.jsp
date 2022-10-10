@@ -25,6 +25,7 @@
         tbody tr:nth-child(even) {
             background-color: whitesmoke;
         }
+
         h3 {
             background: #D9FFAD;
             color: green;

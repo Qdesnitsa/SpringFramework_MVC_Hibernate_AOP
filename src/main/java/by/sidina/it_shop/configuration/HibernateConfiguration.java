@@ -1,6 +1,7 @@
 package by.sidina.it_shop.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -34,6 +35,7 @@ public class HibernateConfiguration {
 
     @Bean
     public DataSource dataSource() throws PropertyVetoException {
+        //BasicDataSource dataSource = new BasicDataSource();
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         cpds.setDriverClass(environment.getRequiredProperty("jdbc.driverClassName"));
         cpds.setJdbcUrl(environment.getRequiredProperty("jdbc.url"));
@@ -49,7 +51,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() throws PropertyVetoException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("by.sidina.it_shop");
+        sessionFactory.setPackagesToScan("by.sidina.it_shop.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

@@ -1,6 +1,6 @@
 package by.sidina.it_shop.dao.order;
 
-import by.sidina.it_shop.entity.order.OrderStatus;
+import by.sidina.it_shop.model.order.OrderStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;

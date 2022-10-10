@@ -1,7 +1,7 @@
-package by.sidina.it_shop.entity.user;
+package by.sidina.it_shop.model.user;
 
-import by.sidina.it_shop.entity.EntityAbstract;
-import by.sidina.it_shop.entity.product.ProductAbstract;
+import by.sidina.it_shop.model.AbstractEntity;
+import by.sidina.it_shop.model.product.AbstractProduct;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends EntityAbstract {
+public class User extends AbstractEntity {
     private String name;
     private String surname;
     private String email;
@@ -22,7 +22,7 @@ public class User extends EntityAbstract {
     @JoinColumn(name = "user_status_id")
     private UserStatus userStatus;
     @Transient
-    private List<ProductAbstract> listOfProductsInUser;
+    private List<AbstractProduct> listOfProductsInUser;
 
     public User() {
     }
@@ -37,14 +37,14 @@ public class User extends EntityAbstract {
         this.userStatus = userStatus;
     }
 
-    public void addProductToUser(ProductAbstract product) {
+    public void addProductToUser(AbstractProduct product) {
         if (listOfProductsInUser == null) {
             listOfProductsInUser = new ArrayList<>();
         }
         listOfProductsInUser.add(product);
     }
 
-    public void removeProductFromOrder(ProductAbstract product) {
+    public void removeProductFromOrder(AbstractProduct product) {
         listOfProductsInUser.remove(product);
     }
 
@@ -104,11 +104,11 @@ public class User extends EntityAbstract {
         this.userStatus = userStatus;
     }
 
-    public List<ProductAbstract> getListOfProductsInUser() {
+    public List<AbstractProduct> getListOfProductsInUser() {
         return listOfProductsInUser;
     }
 
-    public void setListOfProductsInUser(List<ProductAbstract> listOfProductsInUser) {
+    public void setListOfProductsInUser(List<AbstractProduct> listOfProductsInUser) {
         this.listOfProductsInUser = listOfProductsInUser;
     }
 }

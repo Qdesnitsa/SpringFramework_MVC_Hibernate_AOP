@@ -1,7 +1,5 @@
 package by.sidina.it_shop.service;
 
-import by.sidina.it_shop.entity.EntityAbstract;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package by.sidina.it_shop.entity.product;
+package by.sidina.it_shop.model.product;
 
-import by.sidina.it_shop.entity.user.User;
+import by.sidina.it_shop.model.user.User;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("1")
-public class Book extends ProductAbstract {
+public class Book extends AbstractProduct {
     @Column(name = "page_number")
     private int pageNumber;
 
